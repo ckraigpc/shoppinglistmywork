@@ -1,13 +1,13 @@
 //form wrappers
-const shopForm = document.getElementById('shop-form');
-const itemInput = document.getElementById('item');
-const btnAddItem = document.querySelector('input.btn')
+const shopForm = document.querySelector('#shop-form');
+const ulParent = document.querySelector('.collection');
+const btnClear = document.querySelector('.clear-items');
+const filterInput = document.querySelector('#filter');
+const itemInput = document.querySelector('#item');
+ 
 
 // ul wrapper
-const divCardAction = document.querySelector('.card-action');
-const filterInput = document.getElementById('filter');
-const ulParent = document.querySelector('ul.collection');
-const btnClear = document.querySelector('a.clear-items');
+ 
 
 main ();
 
@@ -19,7 +19,7 @@ function main (){
 
   shopForm.addEventListener('submit',addtask);
 
-  divCardAction.addEventListener('click',deleteItem);
+  ulParent.addEventListener('click',deleteItem);
 
   btnClear.addEventListener('click',clearTask);
 
@@ -43,7 +43,6 @@ function getShop(){
   }else{
     shopitem = JSON.parse(localStorage.getItem('shopitem'));
   }
-
   shopitem.forEach(function(item){
      //create element for the li
      let li = document.createElement('li');
@@ -79,7 +78,7 @@ function addtask(e){
   //check for input value
   if(itemInput.value ===''){
     alert('Enter an Item to Buy');
-  }else{
+  }
     //create element for the li
     let li = document.createElement('li');
 
@@ -110,28 +109,23 @@ function addtask(e){
      // store items in the local storage
      storePermanently(itemInput.value);
 
-    alert("Saved");
-
     itemInput.value = "";
-    }
+    
     e.preventDefault();
- 
+    
   }
 
 function storePermanently(item){
     let shopitem;
-    if(localStorage.getItem('shopitem')===null){
+    if(localStorage.getItem('shopitem') === null){
       shopitem = [];
     }else{
-      shopitem = JSON.parse(localStorage.getItem('shop'));
+      shopitem = JSON.parse(localStorage.getItem('shopitem'));
     }
     shopitem.push(item);
 
     localStorage.setItem('shopitem',JSON.stringify(shopitem));
 
-    alert('saved');
-
-    event.preventDefault();
 }
 
 function deleteItem(event){
@@ -167,11 +161,11 @@ function clearTask(){
   clearStorage()
 }
 
-function clearStorage (){
+// function clearStorage (){
 
-  localStorage.clear();
+//   localStorage.clear();
 
-}
+// }
 function filter(event){
   
   const text = event.target.value.toLowerCase();
